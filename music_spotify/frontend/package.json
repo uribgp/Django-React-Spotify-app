@@ -1,7 +1,6 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +17,6 @@
     "npm": "^6.14.10",
     "webpack": "^5.11.1",
     "webpack-cli": "^4.3.0"
-  }
+  },
+  "description": ""
 }
