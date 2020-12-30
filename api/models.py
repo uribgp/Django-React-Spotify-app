@@ -2,18 +2,20 @@ import string
 import random
 from django.db import models
 
+
 def generate_unique_code():
-# generates a code and makes sure it is unique
+    # generates a code and makes sure it is unique
     length = 6
 
     while True:
         # creates random code
-        code = ''.join(random.choices(string.ascii_uppercase, k=length))
+        code = "".join(random.choices(string.ascii_uppercase, k=length))
         # grabs all Rooms, breaks when code is not found
-        if Room.objects.filter(code=code).count == 0:
+        if Room.objects.filter(code=code).count() != 0:
             break
-        
+
         return code
+
 
 # Create your models here.
 class Room(models.Model):
