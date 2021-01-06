@@ -10,11 +10,9 @@ def generate_unique_code():
     while True:
         # creates random code
         code = "".join(random.choices(string.ascii_uppercase, k=length))
-        # grabs all Rooms, breaks when code is not found
-        if Room.objects.filter(code=code).count() != 0:
-            break
-
-        return code
+        # grabs all Rooms, returns when code is not already found in db
+        if Room.objects.filter(code=code).count() == 0:
+            return code
 
 
 # Create your models here.

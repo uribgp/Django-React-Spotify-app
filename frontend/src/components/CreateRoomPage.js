@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Button, Grid, Typography, TextField, FormControl, FormControlLabel, FormHelperText, Radio, RadioGroup } from '@material-ui/core';
 
 
 export default function CreateRoomPage(props) {
+  let history = useHistory();
   const [votesToSkip, setVotesToSkip] = useState(2);
   const [guestCanPause, setGuestCanPause] = useState(true);
 
@@ -26,7 +27,7 @@ export default function CreateRoomPage(props) {
     };
     fetch("/api/create-room", requestOptions)
     .then((response) => response.json())
-    .then((data) => console.log(data));
+    .then((data) => history.push(`/room/${data.code}`));
   }
 
   // 12 is max grid spaces, xs fills up the grid
