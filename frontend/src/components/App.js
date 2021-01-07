@@ -3,8 +3,11 @@ import { render } from 'react-dom';
 import Homepage from './Homepage';
 
 export default function App(props){
-    
-    return <Homepage />
+    return (
+        <div className="center">
+             <Homepage />
+        </div>
+    );
 }
 
 const appDiv = document.getElementById("app");
