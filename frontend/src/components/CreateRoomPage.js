@@ -13,7 +13,7 @@ export default function CreateRoomPage(props) {
   }
 
   function handleGuestCanPauseChange(e){
-    setGuestCanPause(e.target.value == 'true' ? true : false);
+    setGuestCanPause(e.target.value === 'true' ? true : false);
   }
 
   function handleRoomButtonPressed() {
