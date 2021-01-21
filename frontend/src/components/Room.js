@@ -64,13 +64,13 @@ export default function Homepage(props) {
             votesToSkip={votesToSkip}
             guestCanPause={guestCanPause}
             roomCode={roomCode}
-            updateCallback={() => { }}
+            updateCallback={getRoomDetails}
           />
         </Grid>
         <Grid item xs={12} align='center'>
           <Button 
             variant="contained" 
-            color="primary" 
+            color="secondary" 
             onClick={() => setShowSettings(false)}
           >
             Close
@@ -96,12 +96,12 @@ export default function Homepage(props) {
       </Grid>
       <Grid item xs={12} align="center">
         <Typography variant="h6" component="h6">
-          Guest Can Pause: {guestCanPause}
+          Guest Can Pause: {guestCanPause.toString()}
         </Typography>
       </Grid>
       <Grid item xs={12} align="center">
         <Typography variant="h6" component="h6">
-          Host: {isHost}
+          Host: {isHost.toString()}
         </Typography>
       </Grid>
       {isHost ? renderSettingsButton() : null}
