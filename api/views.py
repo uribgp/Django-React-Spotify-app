@@ -23,7 +23,7 @@ class GetRoom(APIView):
         code = request.GET.get(self.lookup_url_kwarg)
         if code != None:
             room = Room.objects.filter(code=code)
-            if len(room):
+            if len(room) > 0:
                 data = RoomSerializer(room[0]).data
                 data['is_host'] = self.request.session.session_key == room[0].host
                 return Response(data, status=status.HTTP_200_OK)
@@ -111,10 +111,10 @@ class LeaveRoom(APIView):
 
 class UpdateRoom(APIView):
     serializer_class = UpdateRoomSerializer
-    
     def patch(self, request, format=None):
         if not self.request.session.exists(self.request.session.session_key):
             self.request.session.create()
+        
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             guest_can_pause = serializer.data.get('guest_can_pause')
@@ -123,11 +123,13 @@ class UpdateRoom(APIView):
 
             queryset = Room.objects.filter(code=code)
             if not queryset.exists():
-                return Response({'msg': 'Room Not Found'}, stat=status.HTTP_404_NOT_FOUND)
+                return Response({'msg': 'Room Not Found'}, status=status.HTTP_404_NOT_FOUND)
+            
             room = queryset[0]
             user_id = self.request.session.session_key
             if room.host != user_id:
                 return Response({'msg': 'You are not the host of this room.'}, status=status.HTTP_403_FORBIDDEN)
+            
             room.guest_can_pause = guest_can_pause
             room.votes_to_skip = votes_to_skip
             room.save(update_fields=['guest_can_pause', 'votes_to_skip'])

@@ -4,7 +4,7 @@ import { Button, Grid, Typography, TextField, FormControl, FormControlLabel, For
 import { Collapse } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 
-export default function CreateRoomPage(props) {
+export default function CreateRoomPage({guestCanPause, update, updateCallback}) {
   let history = useHistory();
   let { roomCode } = useParams();
   const [votesToSkip, setVotesToSkip] = useState(2);
@@ -53,7 +53,7 @@ export default function CreateRoomPage(props) {
           setError("Error Updating Room")
         }
       });
-      props.updateCallback();
+    updateCallback();
   }
 
   function renderCreateButtons() {
@@ -95,7 +95,7 @@ export default function CreateRoomPage(props) {
     )
   }
 
-  const title = props.update ? "Update Room" : "Create Room"
+  const title = update ? "Update Room" : "Create Room"
 
   // 12 is max grid spaces, xs fills up the grid
   return (
@@ -117,7 +117,7 @@ export default function CreateRoomPage(props) {
               Guest Control of Playback State
           </div>
           </FormHelperText>
-          <RadioGroup row defaultValue={props.guestCanPause.toString()} onChange={handleGuestCanPauseChange}>
+          <RadioGroup row defaultValue={guestCanPause.toString()} onChange={handleGuestCanPauseChange}>
             <FormControlLabel value='true' control={<Radio color="primary" />} label="Play/Pause" labelPlacement="Bottom" />
             <FormControlLabel value='false' control={<Radio color="secondary" />} label="No Control" labelPlacement="Bottom" />
           </RadioGroup>
@@ -133,7 +133,7 @@ export default function CreateRoomPage(props) {
           </FormHelperText>
         </FormControl>
       </Grid>
-      {props.update ? renderUpdateButtons() : renderCreateButtons()}
+      {update ? renderUpdateButtons() : renderCreateButtons()}
     </Grid>
   )
 }
